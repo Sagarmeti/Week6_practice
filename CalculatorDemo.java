@@ -1,27 +1,51 @@
-/*Create a class named "Calculator" with three methods named "add" with first method takes two parameters of int type. Second add method takes 2 paramters of double type and third add method takes 3 parameters of first two parameters of int and third parameters of long and perform addition operation in each method.*/
-
-class Calculator {
-    public void add(int a, int b) {
-        int sum = a + b;
-        System.out.println("sum:" +sum);
-    }
-
-    public void add(double a, double b) {
-        double sum = a + b;
-        System.out.println("sum:" +sum);
-    }
-
-    public void add(int a, int b, long c) {
-        long sum = a + b + c;
-        System.out.println("sum:" +sum);
-    }
+import java.util.Scanner;
+class InvalidExpressionException extends Exception{
+  InvalidExpressionException(String str){
+    super(str);
+  }
 }
-
-class CalculatorDemo {
-    public static void main(String[] args) {
-        Calculator calculator = new Calculator();
-        calculator.add(1, 7);
-        calculator.add(5.5, 6.6);
-        calculator.add(5, 6, 83);
+class Calculator{
+  Scanner s=new Scanner(System.in);
+ void operations(int a,int b) throws InvalidExpressionException{
+   System.out.println("1.Addition (+)");
+    System.out.println("2.subtraction (-)");
+    System.out.println("3.Multiplication  (*)");
+    System.out.println("4.Division  (/)");
+   System.out.println("Enter your choice");
+   char ch=next().charAt(0);
+   switch(ch){
+     case '+': int add=a+b;
+             System.out.println("sum is:"+add);
+       break;
+     case '-': int sub=a-b;
+             System.out.println("difference is:"+sub);
+       break;
+     case '*': int mul=a*b;
+             System.out.println("Product is:"+mul);
+       break;
+     case '/': try{
+       double div=a/b;
+       System.out.println("division is:"+div);
+     }
+       catch(ArithmeticException e){
+         System.out.println(e);
+       }
+            
+       break;
+     default: throw new InvalidExpressionException("Invalid choice");
+   }
+  
+ }
+}
+class CalculatorDemo{
+  public static void main(String args[]){
+    Calculator c=new Calculator();
+   
+    try{
+    c.operations(5,5);
     }
+    catch(InvalidExpressionException e){
+      System.out.println(e);
+    }
+  }
 }
